@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = "4fb876242331584a793776ad67394d0ee00290f140fd9ab047456d54fdff0bd1";
-const Credential=require("../model/credential")
+const Credential = require("../model/credential")
 
 const register = async (req, res) => {
     const { username, password, role } = req.body;
@@ -26,7 +26,7 @@ const login = async (req, res) => {
 
 };
 
-module.exports={
+module.exports = {
     login,
     register
 }

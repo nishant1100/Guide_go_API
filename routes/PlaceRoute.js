@@ -16,11 +16,11 @@ const storage=multer.diskStorage({
 const upload = multer({storage})
 
 
-router.get("/",authenticateToken, findall);
-router.post("/", upload.single('file'),save);
-router.get("/:id",findById);
-router.delete("/:id",deleteById);
-router.put("/:id",update)
+router.get("/", findall);
+router.post("/",authenticateToken, upload.single('file'),save);
+router.get("/:id",authenticateToken,findById);
+router.delete("/:id",authenticateToken,deleteById);
+router.put("/:id",authenticateToken,update)
 
 
 

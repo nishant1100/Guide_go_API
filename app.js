@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/api/user",UserRouter );
 app.use("/api/place",PlaceRouter );
 app.use("/api/hire",HireRouter );
-app.use("/auth",AuthRouter);
+app.use("/api/auth",AuthRouter);
 
 const port = 3000;
 app.listen(port, () => {
