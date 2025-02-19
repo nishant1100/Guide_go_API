@@ -8,14 +8,23 @@ const userSchema =new mongoose.Schema({
         type:String,
         require:true
     },
-    email:{
+    phone:{
         type:String,
         require:true
     },
-    contact:{
+    image: {
+        type: String,
+        require:false
+    },
+    username:{
+        type:String,
+        require:true
+    },
+    password:{
         type:String,
         require:true
     }
+
 })
 
 const User=mongoose.model("users",userSchema);

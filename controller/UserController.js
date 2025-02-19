@@ -1,4 +1,5 @@
 const User = require("../model/user");
+const nodemailer=require("nodemailer");
 
 const findall = async (req, res) => {
     try {
@@ -13,7 +14,6 @@ const save = async (req, res) => {
     try {
         const user = new User(req.body);
         await user.save();
-        res.status(201).json(user);
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
