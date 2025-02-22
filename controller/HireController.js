@@ -23,7 +23,7 @@ const save = async (req, res) => {
 
         await hiring.save();
 
-        const populatedHiring = await Hire.findById(hiring._id).populate('userId').populate('placeId');
+        const populatedHiring = await Hire.findById(hiring._id).populate('userId');
         console.log("Populated Hiring:", populatedHiring); // Log populated hiring document
 
         res.status(201).json(populatedHiring);

@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 
 const hireSchema = new mongoose.Schema({
@@ -5,23 +6,24 @@ const hireSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"  // Ensure this matches the model name for the User collection in your MongoDB
     },
-    placeId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "places"  // Ensure this matches the model name for the Place collection in your MongoDB
+    pickupLocation: {
+        type:String,
+        required: true
     },
-    date: {
+    pickupDate: {
         type: String,
         required: true
     },
-    timeFrom: {
+    pickupTime: {
         type: String,
         required: true
     },
-    timeTo: {
-        type: String,
+    noofPeople:{
+        type:String,
         required: true
     },
-    status: {
+
+    pickupType: {
         type: String,
         required: true
     }
