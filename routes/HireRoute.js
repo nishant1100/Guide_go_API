@@ -1,12 +1,11 @@
-const express=require("express");
-const router=express.Router();
-const { findall, save} = require("../controller/HireController");
+const express = require("express");
+const { save } = require("../controller/HireController");
+const router = express.Router();
 
+// Route to create a new booking (hire a guide)
+router.post("/:guideId", save);
 
+// Route to get all bookings with populated guide and user details
+//router.get("/", getHires);
 
-router.get("/", findall);
-router.post("/", save);
-
-
-
-module.exports=router;
+module.exports = router;

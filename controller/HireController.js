@@ -1,4 +1,5 @@
 const Hire = require("../model/hire");
+const Guide = require("../model/guide")
 
 const findall = async (req, res) => {
     try {
@@ -11,27 +12,56 @@ const findall = async (req, res) => {
 
 const save = async (req, res) => {
     try {
+        console.log("Request Params (Guide ID):", req.params.guideId);
         console.log("Request Body:", req.body);
 
-        // Ensure userId is provided
-        if (!req.body.userId) {
-            return res.status(400).json({ error: "UserId is required" });
+        const { guideId } = req.params; // Fix: correctly extracting guideId
+        const { userId, pickupLocation, pickupDate, pickupTime, noofPeople, pickupType } = req.body;
+
+        // Ensure required fields are provided
+        if (!guideId) {
+            return res.status(400).json({ error: "GuideId is required" });
+        }
+        
+
+        // Find the guide and update availability
+        const guide = await Guide.findById(guideId);
+        if (!guide) {
+            return res.status(404).json({ error: "Guide not found" });
         }
 
-        const hiring = new Hire(req.body);
-        console.log("Hiring Before Save:", hiring); // Log the hiring document before saving
+        guide.avaiable = "no"; // Mark guide as unavailable
+        await guide.save();
+
+        // Create new booking
+        const hiring = new Hire({
+            userId,
+            pickupLocation: pickupLocation,  // Mapping correct field
+            pickupDate: pickupDate,
+            pickupTime: pickupTime,
+            noofPeople: noofPeople,
+            pickupType: pickupType,
+            guideId: guideId
+        });
+        
+
+        console.log("Hiring Before Save:", hiring);
 
         await hiring.save();
 
-        const populatedHiring = await Hire.findById(hiring._id).populate('userId');
-        console.log("Populated Hiring:", populatedHiring); // Log populated hiring document
+        const populatedHiring = await Hire.findById(hiring._id)
+            .populate('userId')
+            .populate('guideId');
+
+        console.log("Populated Hiring:", populatedHiring);
 
         res.status(201).json(populatedHiring);
     } catch (e) {
-        console.error("Error:", e.message); // Log the error for debugging
+        console.error("Error:", e.message);
         res.status(500).json({ error: e.message });
     }
 };
+
 
 
 
@@ -40,3 +70,4 @@ module.exports = {
     findall,
     save
 };
+

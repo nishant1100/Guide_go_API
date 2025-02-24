@@ -6,6 +6,11 @@ const hireSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"  // Ensure this matches the model name for the User collection in your MongoDB
     },
+    guideId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "guide",
+        required: true 
+    },
     pickupLocation: {
         type:String,
         required: true

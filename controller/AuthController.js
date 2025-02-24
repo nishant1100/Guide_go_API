@@ -24,10 +24,6 @@ const register = async (req, res) => {
         const newuser = new user(userData);
         await newuser.save();
 
-        // Save credentials separately
-        // const cred = new Credential({ username, password: hashedPassword, role });
-        // await cred.save();
-
         res.status(201);
     } catch (error) {
         console.error("Registration Error:", error);
