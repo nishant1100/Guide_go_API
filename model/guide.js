@@ -16,7 +16,7 @@ const guideSchema =new mongoose.Schema({
         type: String,
         require:false
     },
-    avaiable:{
+    avaiable:{  
         type:String,
         require:true
     },

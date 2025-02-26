@@ -12,11 +12,11 @@ const findall = async (req, res) => {
 
 const save = async (req, res) => {
     try {
-        console.log("Request Params (Guide ID):", req.params.guideId);
+        // console.log("Request Params (Guide ID):", req.params.guideId);
         console.log("Request Body:", req.body);
 
-        const { guideId } = req.params; // Fix: correctly extracting guideId
-        const { userId, pickupLocation, pickupDate, pickupTime, noofPeople, pickupType } = req.body;
+        // const { guideId } = req.params; // Fix: correctly extracting guideId
+        const { userId, pickupLocation, pickupDate, pickupTime, noofPeople, pickupType,guideId } = req.body;
 
         // Ensure required fields are provided
         if (!guideId) {
@@ -62,12 +62,35 @@ const save = async (req, res) => {
     }
 };
 
+const getBookingById = async (req, res) => {
+    try {
+        const { bookingId } = req.params;  // Extract bookingId from the request parameters
+
+        // Find booking by ID and populate related fields (e.g., guide, user)
+        const booking = await Hire.findById(bookingId)
+            .populate('userId')   // Populate the user data (if needed)
+            .populate('guideId'); // Populate the guide data (if needed)
+
+        // If booking doesn't exist
+        if (!booking) {
+            return res.status(404).json({ error: "Booking not found" });
+        }
+
+        // Send the booking data as response
+        res.status(200).json(booking);
+    } catch (e) {
+        console.error("Error:", e.message);
+        res.status(500).json({ error: "Failed to fetch booking" });
+    }
+};
+
 
 
 
 
 module.exports = {
     findall,
-    save
+    save,
+    getBookingById
 };
 
