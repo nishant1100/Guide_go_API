@@ -84,12 +84,34 @@ const getBookingById = async (req, res) => {
     }
 };
 
+const getUserHires = async (req, res) => {
+    try {
+        const { userId } = req.params; // Extract userId from URL params
 
+        if (!userId) {
+            return res.status(400).json({ error: "User ID is required" });
+        }
+
+        const hires = await Hire.find({ userId })
+            .populate('guideId')  // Populate guide details
+            .populate('userId');  // Populate user details if needed
+
+        if (!hires.length) {
+            return res.status(404).json({ error: "No bookings found for this user" });
+        }
+
+        res.status(200).json(hires);
+    } catch (e) {
+        console.error("Error fetching user hires:", e.message);
+        res.status(500).json({ error: "Failed to fetch user hires" });
+    }
+};
 
 
 
 module.exports = {
     findall,
+    getUserHires,
     save,
     getBookingById
 };

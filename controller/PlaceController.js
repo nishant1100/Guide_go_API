@@ -11,9 +11,10 @@ const findall = async (req, res) => {
 
 const save = async (req, res) => {
     try {
-        const { name, description } = req.body;
+        const { name, location, description } = req.body;
         const place = new Place({
             name,
+            location,
             description,
             images: req.file.originalname,
         });

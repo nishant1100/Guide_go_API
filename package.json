@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -13,22 +13,13 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.21.2",
+    "guide-go-server": "file:",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.3",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.9",
     "react-router-dom": "^7.1.5"
-  },
-  "devDependencies": {
-    "jest": "^29.7.0",
-    "mongoose": "^8.11.0",
-    "supertest": "^7.0.0"
-  },
-  "jest": {
-    "moduleDirectories": [
-      "node_modules",
-      "<rootDir>/"
-    ]
   }
 }
